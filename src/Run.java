@@ -3,50 +3,44 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Alphabet = E, G, L, O, X
+ *
+ * Σ= {E, G, L, O, X}
  */
 
 public class Run {
 
-    // Nfa example
+
     Table table = new Table();
 
-    /**
-     * IO Helpers
-     */
-    private void importFileAndRead () {
-        File file = new File(System.getProperty("user.dir") + "/words.txt");
-
-        if (!file.exists()) {
-            System.out.println("The file you are trying to read does not exist.");
-            return;
-        }
-
-        readFile(file);
-    }
 
     /**
-     * Please edit lines 68 and 69 to swap between both methods.
-     *
-     * @param file File
+     * Reading File from the path folder
+     * @param file
      */
+
     private void readFile (File file) {
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String w = scanner.nextLine();
-                String result = nfaParallel.checkWord(w);
+            Scanner scanner = new Scanner(file); // Getting user input
 
-                System.out.println(w + ": " + result);
+            // Checking file the file has more words to read
+            while (scanner.hasNextLine()) {
+                String word = scanner.nextLine();
+                table.checkAlphabet(word); // Passing the word to the checkAlphabet method
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Catching the Input Output Exception
         }
     }
+
+    private void readFile () {
+        File file = new File(System.getProperty("user.dir") + "/words.txt"); // Creating words txt document to keep the words we want to test
+        readFile(file); // Passing the file object to the read file method
+    }
+
 
     public static void main (String[] args) {
         Run main = new Run();
-        main.importFileAndRead();
+        main.readFile();
     }
 
 }
