@@ -32,7 +32,7 @@ public class Table {
     public void readWords(){
         String [] words = {"GOOGLE","GOOGLLE","XXOOOXXXEELLLGOOGLEEEEEXXXXLLLOOOO","GOOOOOOOOOOOOOOOOOOOGGGGLLGGGOOOOOOGLEEEEEEXXXXO","GLE","GXGLE",""}; // Words to be tested
         for(String word : words){
-            checkAlphabet(word);
+            checkAlphabet(word); // Checking the alphabet and the transitions
 
         }
     }
@@ -113,12 +113,23 @@ public class Table {
 
             }
 
-            System.out.println("WORD:"+word+" "+(state == q5 ? "Accepted" : "Rejected")); // Ternary operation to check if the word is accepted or rejected
+//            System.out.println("WORD:"+word+" "+(state == q5 ? "Accepted" : "Rejected")); // Ternary operation to check if the word is accepted or rejected
+            checkifAccepted(state,word);
             state=0; // Resseting state after each checking
 
 
 
 
+    }
+
+    /**
+     * Method to print if word is accepted or no
+     * @param state
+     * @param word
+     */
+    public void checkifAccepted(int state,String word ){
+
+        System.out.println("WORD:"+word+" "+(state == q5 ? "Accepted" : "Rejected")); // Ternary operation to check if the word is accepted or rejected
     }
 
 }
