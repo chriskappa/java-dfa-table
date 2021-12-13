@@ -1,13 +1,20 @@
 public class Table {
 
-    private int state;
-
+    private int state; // Initializing state
+    /**
+     * Initializing states
+     */
     private final int q1 = 0;
     private final int q2 = 1;
     private final int q3 = 2;
     private final int q4 = 3;
     private final int q5 = 4;
 
+
+    /**
+     *
+     * Reprecentation of DFA Table using 2D Array
+     */
     private final int[][] delta = {
             {q1, q2, q1, q1, q1},
             {q1, q3, q1, q2, q1},
@@ -17,20 +24,29 @@ public class Table {
     };
 
     public static void main(String[] args) {
-        Table t = new Table();
-        t.test();
+        Table table = new Table();
+        table.readWords();
 
     }
 
-    public void test (){
-//        GGLE
-        int state = 0;
-        String [] words = {"GOOGLE","GOOGLLE","XXOOOXXXEELLLGOOGLEEEEEXXXXLLLOOOO","GOOOOOOOOOOOOOOOOOOOGGGGLLGGGOOOOOOGLEEEEEEXXXXO","GLE","GXGLE"};
-        char [] alphabet = {'G','L','O','E','X'};
+    public void readWords(){
+        String [] words = {"GOOGLE","GOOGLLE","XXOOOXXXEELLLGOOGLEEEEEXXXXLLLOOOO","GOOOOOOOOOOOOOOOOOOOGGGGLLGGGOOOOOOGLEEEEEEXXXXO","GLE","GXGLE",""}; // Words to be tested
         for(String word : words){
+            checkAlphabet(word);
+
+        }
+    }
+
+    public void checkAlphabet (String word){
+        int state = 0; // Resseting the initial State to start State
+
+
             for(char character : word.toCharArray()){
 
-
+                /**
+                 *
+                 * Checking Transitions based on characters
+                 */
                if(character == 'G' && state == delta[0][0] ){
                     state = delta[state][1];
 
@@ -54,10 +70,18 @@ public class Table {
 
                 }
 
+               /**
+                *
+                * Creating Loop if the character is O
+                */
                else  if(state == 1 && character == 'O'){
                         state = delta[1][3];
 
                 }
+               /**
+                *
+                * Reseting the state back to start state
+                */
                else if(state == 1 && (character == 'X' || character == 'L' || character == 'E' )){
                     state = delta[0][0];
 
@@ -89,9 +113,9 @@ public class Table {
 
             }
 
-            System.out.println("WORD:"+word+" "+(state == q5));
-            state=0;
-        }
+            System.out.println("WORD:"+word+" "+(state == q5 ? "Accepted" : "Rejected")); // Ternary operation to check if the word is accepted or rejected
+            state=0; // Resseting state after each checking
+
 
 
 
